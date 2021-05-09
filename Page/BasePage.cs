@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,14 @@ namespace BaigiamasisDarbas2021
             Driver = webDriver;
         }
 
-        public void CloseBrowser()
-        {
-            Driver.Close();
-        }
+        //public void CloseBrowser()
+        //{
+        //    Driver.Close();
+        //}
 
-        public WebDriverWait GetWait(int seconds = 10)
-        {
-            return new WebDriverWait(Driver, TimeSpan.FromSeconds(seconds));
-        }
+        //public WebDriverWait GetWait(int seconds = 10)
+        //{
+        //    return new WebDriverWait(Driver, TimeSpan.FromSeconds(seconds));
+        //}
     }
 }
