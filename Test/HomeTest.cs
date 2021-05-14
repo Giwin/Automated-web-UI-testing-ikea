@@ -11,8 +11,14 @@ using System.Threading.Tasks;
 
 namespace BaigiamasisDarbas2021.Test
 {
-    class SearchTest : BaseTest
+    class HomeTest : BaseTest
     {
+        [Test]
+        public static void AcceptCookies()
+        {
+            homePage.NavigateToDefaultPage().
+                AcceptCookie();
+        }
         [Test]
         public static void TestSearch()
         {

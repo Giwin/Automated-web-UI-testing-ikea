@@ -17,14 +17,10 @@ namespace BaigiamasisDarbas2021
             Driver = webDriver;
         }
 
-        //public void CloseBrowser()
-        //{
-        //    Driver.Close();
-        //}
-
-        //public WebDriverWait GetWait(int seconds = 10)
-        //{
-        //    return new WebDriverWait(Driver, TimeSpan.FromSeconds(seconds));
-        //}
+        //explicit wait
+        public WebDriverWait GetWait(int seconds = 10)
+        {
+            return new WebDriverWait(Driver, TimeSpan.FromSeconds(seconds));
+        }
     }
 }

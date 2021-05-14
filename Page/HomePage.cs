@@ -28,6 +28,19 @@ namespace BaigiamasisDarbas2021.Page
             }
             return this;
         }
+        public HomePage AcceptCookie()
+        {
+
+            Cookie myCookie = new Cookie("CookieConsent"
+                , "{stamp:%27xGChaLlxWj47cmgNIwWN0ODOISlFh5A+bNoSqQjL/5hZMxaa988X1w==%27%2Cnecessary:true%2Cpreferences:false%2Cstatistics:false%2Cmarketing:false%2Cver:1%2Cutc:1621010391490%2Cregion:%27lt%27}"
+                , "www.ikea.lt"
+                , "/"
+                , DateTime.Now.AddDays(5));
+
+            Driver.Manage().Cookies.AddCookie(myCookie);
+            Driver.Navigate().Refresh();
+            return this;
+        }
         public HomePage InsertSearchText(string searchText)
         {
             searchField.Clear();
@@ -48,5 +61,6 @@ namespace BaigiamasisDarbas2021.Page
             //Assert.IsTrue(searchResults[0].Text.Contains(expectedText), $"Result is wrong. Expected value is {expectedText} but actual result is {searchResults[0].Text}");
             return this;
         }
+
     }
 }
