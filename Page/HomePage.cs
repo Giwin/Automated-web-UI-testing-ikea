@@ -11,16 +11,23 @@ namespace BaigiamasisDarbas2021.Page
 {
     public class HomePage : BasePage
     {
+        private const string urlPage = "https://www.ikea.lt/lt";
         private IWebElement searchField => Driver.FindElement(By.Id("header_searcher_desktop_input"));
         private IWebElement searchButton => Driver.FindElement(By.CssSelector("#headerMainToggler > div > div.container.headerMenuProducts > div.d-none.d-lg-block.m-0.searcher > div > div > button"));
         private IReadOnlyCollection<IWebElement> searchResults => Driver.FindElements(By.CssSelector("#contentWrapper > div.container > div > div.products_list.w-100.d-flex.flex-wrap > div:nth-child(1) > div"));
         // IList<IWebElement> searchResults => Driver.FindElements(By.ClassName("card px-3"));
-
-        public HomePage(IWebDriver webDriver) : base(webDriver)
+        
+        public HomePage(IWebDriver webdriver) : base(webdriver)
         {
-            Driver = webDriver;
         }
-
+        public HomePage NavigateToDefaultPage()
+        {
+            if (Driver.Url != urlPage)
+            {
+                Driver.Url = urlPage;
+            }
+            return this;
+        }
         public HomePage InsertSearchText(string searchText)
         {
             searchField.Clear();
