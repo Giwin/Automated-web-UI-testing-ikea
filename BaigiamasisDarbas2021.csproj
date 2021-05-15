@@ -58,6 +58,7 @@
     <Compile Include="Driver\Browsers.cs" />
     <Compile Include="Driver\CustomDriver.cs" />
     <Compile Include="Page\BasePage.cs" />
+    <Compile Include="Page\ShoppingCartPage.cs" />
     <Compile Include="Page\HomePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\BaseTest.cs" />

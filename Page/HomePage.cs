@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BaigiamasisDarbas2021.Page
@@ -13,10 +14,11 @@ namespace BaigiamasisDarbas2021.Page
     {
         private const string urlPage = "https://www.ikea.lt/lt";
         private IWebElement searchField => Driver.FindElement(By.Id("header_searcher_desktop_input"));
-        private IWebElement searchButton => Driver.FindElement(By.CssSelector("#headerMainToggler > div > div.container.headerMenuProducts > div.d-none.d-lg-block.m-0.searcher > div > div > button"));
-        private IReadOnlyCollection<IWebElement> searchResults => Driver.FindElements(By.CssSelector("#contentWrapper > div.container > div > div.products_list.w-100.d-flex.flex-wrap > div:nth-child(1) > div"));
-        // IList<IWebElement> searchResults => Driver.FindElements(By.ClassName("card px-3"));
-        
+        private IWebElement searchButton => Driver.FindElement(By.ClassName("input-group-append"));
+        private IReadOnlyCollection<IWebElement> productCards => Driver.FindElement(By.CssSelector(".productList"))
+            .FindElements(By.CssSelector(".card"));
+        private IWebElement addToCartButton => Driver.FindElement(By.CssSelector("#sidenav > div > div.card-body > div > div > div:nth-child(2) > div > div.itemActionBlock > div.itemButtons > button.addToCart.btn.btn-yellow.btn-block.btn-icon.text-white"));
+        private IWebElement goToCartButton => Driver.FindElement(By.XPath("//*[text()='Peržiūrėti pirkinių krepšelį']"));
         public HomePage(IWebDriver webdriver) : base(webdriver)
         {
         }
@@ -30,7 +32,6 @@ namespace BaigiamasisDarbas2021.Page
         }
         public HomePage AcceptCookie()
         {
-
             Cookie myCookie = new Cookie("CookieConsent"
                 , "{stamp:%27xGChaLlxWj47cmgNIwWN0ODOISlFh5A+bNoSqQjL/5hZMxaa988X1w==%27%2Cnecessary:true%2Cpreferences:false%2Cstatistics:false%2Cmarketing:false%2Cver:1%2Cutc:1621010391490%2Cregion:%27lt%27}"
                 , "www.ikea.lt"
@@ -54,12 +55,34 @@ namespace BaigiamasisDarbas2021.Page
         }
         public HomePage VerifySearchResults(string expectedText)
         {
-            foreach (IWebElement element in searchResults)
-            {
-                Assert.IsTrue(element.Text.Contains(expectedText), $"Result is wrong. Result is expected to contain {expectedText} but actual result is {element.Text}");
-            }
-            //Assert.IsTrue(searchResults[0].Text.Contains(expectedText), $"Result is wrong. Expected value is {expectedText} but actual result is {searchResults[0].Text}");
+            Assert.IsTrue(
+                productCards.ElementAt(0).Text.Contains(expectedText),
+                $"Result is wrong. Result is expected to contain {expectedText} but actual result is {productCards.ElementAt(0).Text}"
+            );
             return this;
+        }
+        public HomePage OpenProductQuickView(int index)
+        {
+            productCards.ElementAt(index).FindElement(By.XPath("//*[text()='Greita peržiūra']")).Click();
+            return this;
+        }
+        public string GetProductTitle(int index)
+        {
+            return productCards.ElementAt(index).FindElement(By.XPath("//*[@data-title]")).Text;
+        }
+        public HomePage AddProductToCart()
+        {
+            GetWait().Until(ExpectedConditions.ElementToBeClickable(addToCartButton));
+            addToCartButton.Click();
+            return this;
+        }
+        public ShoppingCartPage GoToCart()
+        {
+            //GetWait().Until(ExpectedConditions.ElementIsVisible(By.CssSelector("article.item")));
+            GetWait().Until(ExpectedConditions.ElementToBeClickable(goToCartButton));
+            Thread.Sleep(200);
+            goToCartButton.Click();
+            return new ShoppingCartPage(Driver);
         }
 
     }

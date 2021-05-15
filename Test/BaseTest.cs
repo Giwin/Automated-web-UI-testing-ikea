@@ -14,10 +14,11 @@ using System.Threading.Tasks;
 
 namespace BaigiamasisDarbas2021.Test
 {
-    class BaseTest
+    public class BaseTest
     {
         protected static IWebDriver driver;
         public static HomePage homePage;
+        public static ShoppingCartPage shoppingCartPage;
 
         [OneTimeSetUp]
         public static void SetUp()
@@ -25,6 +26,7 @@ namespace BaigiamasisDarbas2021.Test
             driver = CustomDriver.GetChromeDriver();
             //driver = CustomDriver.GetFirefoxDriver();
             homePage = new HomePage(driver);
+            shoppingCartPage = new ShoppingCartPage(driver);
         }
         [TearDown]
         public static void TearDownAttribute()
