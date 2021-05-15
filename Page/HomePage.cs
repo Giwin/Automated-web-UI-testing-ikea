@@ -18,7 +18,14 @@ namespace BaigiamasisDarbas2021.Page
         private IReadOnlyCollection<IWebElement> productCards => Driver.FindElement(By.CssSelector(".productList"))
             .FindElements(By.CssSelector(".card"));
         private IWebElement addToCartButton => Driver.FindElement(By.CssSelector("#sidenav > div > div.card-body > div > div > div:nth-child(2) > div > div.itemActionBlock > div.itemButtons > button.addToCart.btn.btn-yellow.btn-block.btn-icon.text-white"));
-        private IWebElement goToCartButton => Driver.FindElement(By.XPath("//*[text()='Peržiūrėti pirkinių krepšelį']"));
+        private IWebElement goToCartButton => Driver.FindElement(By.CssSelector("#modal > div > div > div.modal-footer.d-block > div.row.m-0 > div > div > button.goToCart.btn.btn-yellow.btn-icon.text-white"));
+        private IWebElement loginOrRegisterButton => Driver.FindElement(By.XPath("//*[text()='Prisijungti arba registruotis']"));
+        private IWebElement emailField => Driver.FindElement(By.Id("loginForm_email"));
+        private IWebElement passwordField => Driver.FindElement(By.Id("loginForm_password"));
+        private IWebElement loginButton => Driver.FindElement(By.Id("btnSubmitLogin"));
+
+
+        private IWebElement addToFavoritesButton => Driver.FindElement(By.CssSelector("#sidenav > div > div.card-body > div > div > div:nth-child(2) > div > div.itemActionBlock > div.itemButtons > button.addFavorites.btn.btn-block.btn-icon"));
         public HomePage(IWebDriver webdriver) : base(webdriver)
         {
         }
@@ -78,11 +85,35 @@ namespace BaigiamasisDarbas2021.Page
         }
         public ShoppingCartPage GoToCart()
         {
-            //GetWait().Until(ExpectedConditions.ElementIsVisible(By.CssSelector("article.item")));
             GetWait().Until(ExpectedConditions.ElementToBeClickable(goToCartButton));
             Thread.Sleep(200);
             goToCartButton.Click();
             return new ShoppingCartPage(Driver);
+        }
+        public HomePage ClickLoginOrRegister()
+        {
+            loginOrRegisterButton.Click();
+            return this;
+        }
+        public HomePage EnterEmail(string username)
+        {
+            emailField.SendKeys(username);
+            return this;
+        }
+        public HomePage EnterPassword(string password)
+        {
+            passwordField.SendKeys(password);
+            return this;
+        }
+        public UserPage ClickLogin()
+        {
+            loginButton.Click();
+            return new UserPage(Driver);
+        }
+        public FavoritesPage AddToFavorites()
+        {
+            //add method
+            return new FavoritesPage(Driver);
         }
 
     }

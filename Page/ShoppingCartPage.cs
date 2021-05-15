@@ -38,5 +38,10 @@ namespace BaigiamasisDarbas2021.Page
             itemList[index].FindElement(By.XPath("//*[text()='Pašalinti']")).Click();
             return this;
         }
+        public ShoppingCartPage VerifyShoppingCartIsEmpty()
+        {
+            Assert.IsEmpty(itemList);
+            return this;
+        }
     }
 }

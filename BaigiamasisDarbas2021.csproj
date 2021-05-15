@@ -58,12 +58,18 @@
     <Compile Include="Driver\Browsers.cs" />
     <Compile Include="Driver\CustomDriver.cs" />
     <Compile Include="Page\BasePage.cs" />
+    <Compile Include="Page\FavoritesPage.cs" />
     <Compile Include="Page\ShoppingCartPage.cs" />
     <Compile Include="Page\HomePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\BaseTest.cs" />
-    <Compile Include="Test\HomeTest.cs" />
+    <Compile Include="Test\FavoritesTest.cs" />
+    <Compile Include="Test\LoginTest.cs" />
+    <Compile Include="Test\ProductCartTest.cs" />
+    <Compile Include="Test\SearchTest.cs" />
+    <Compile Include="Page\UserPage.cs" />
     <Compile Include="Tools\MyScreenshot.cs" />
+    <Compile Include="User\MyUser.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
