@@ -9,7 +9,7 @@ namespace BaigiamasisDarbas2021.Page
 {
     public class UserPage : BasePage
     {
-        private const string urlPage = "";
+        private const string urlPage = "https://www.ikea.lt/lt/client/account";
 
         public UserPage(IWebDriver webdriver) : base(webdriver)
         {

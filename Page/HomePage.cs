@@ -19,7 +19,11 @@ namespace BaigiamasisDarbas2021.Page
             .FindElements(By.CssSelector(".card"));
         private IWebElement addToCartButton => Driver.FindElement(By.CssSelector("#sidenav > div > div.card-body > div > div > div:nth-child(2) > div > div.itemActionBlock > div.itemButtons > button.addToCart.btn.btn-yellow.btn-block.btn-icon.text-white"));
         private IWebElement goToCartButton => Driver.FindElement(By.CssSelector("#modal > div > div > div.modal-footer.d-block > div.row.m-0 > div > div > button.goToCart.btn.btn-yellow.btn-icon.text-white"));
+        private IWebElement addToFavorites => Driver.FindElement(By.CssSelector("#sidenav > div > div.card-body > div > div > div:nth-child(2) > div > div.itemActionBlock > div.itemButtons > button.addFavorites.btn.btn-block.btn-icon"));
+        private IWebElement closeProductModal => Driver.FindElement(By.ClassName("close-legend"));
+        private IWebElement openFavoritesButton => Driver.FindElement(By.CssSelector("#headerMainToggler > div > div.container.headerMenuProducts > div.d-none.d-lg-block.ml-4.favourites-notification > a"));
         private IWebElement loginOrRegisterButton => Driver.FindElement(By.XPath("//*[text()='Prisijungti arba registruotis']"));
+        private IWebElement logoutButton => Driver.FindElement(By.XPath("//*[text()='Atsijungti']"));
         private IWebElement emailField => Driver.FindElement(By.Id("loginForm_email"));
         private IWebElement passwordField => Driver.FindElement(By.Id("loginForm_password"));
         private IWebElement loginButton => Driver.FindElement(By.Id("btnSubmitLogin"));
@@ -90,6 +94,20 @@ namespace BaigiamasisDarbas2021.Page
             goToCartButton.Click();
             return new ShoppingCartPage(Driver);
         }
+        public HomePage AddToFavorites()
+        {
+            GetWait().Until(ExpectedConditions.ElementToBeClickable(addToFavorites));
+            addToFavorites.Click();
+            closeProductModal.Click();
+            return this;
+        }
+        public HomePage OpenFavoritedProductsList()
+        {
+            //GetWait().Until(ExpectedConditions.ElementToBeClickable(openFavoritesButton));
+            //Thread.Sleep(200);
+            openFavoritesButton.Click();
+            return this;
+        }
         public HomePage ClickLoginOrRegister()
         {
             loginOrRegisterButton.Click();
@@ -105,15 +123,20 @@ namespace BaigiamasisDarbas2021.Page
             passwordField.SendKeys(password);
             return this;
         }
-        public UserPage ClickLogin()
+        public HomePage ClickLogin()
         {
             loginButton.Click();
-            return new UserPage(Driver);
+            return this;
         }
-        public FavoritesPage AddToFavorites()
+        public HomePage VerifyLogoutButtonIsPresent()
         {
-            //add method
-            return new FavoritesPage(Driver);
+            Assert.IsNotNull(logoutButton);
+            return this;
+        }
+        public HomePage ClickLogout()
+        {
+            logoutButton.Click();
+            return this;
         }
 
     }

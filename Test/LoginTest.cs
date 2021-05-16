@@ -17,8 +17,9 @@ namespace BaigiamasisDarbas2021.Test
                 .ClickLoginOrRegister()
                 .EnterEmail(User.MyUser.TestUser.Email)
                 .EnterPassword(User.MyUser.TestUser.Password)
-                .ClickLogin();
-            //not finished
+                .ClickLogin()
+                .VerifyLogoutButtonIsPresent()
+                .ClickLogout();
         }
     }
 }

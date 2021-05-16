@@ -19,6 +19,8 @@ namespace BaigiamasisDarbas2021.Test
         protected static IWebDriver driver;
         public static HomePage homePage;
         public static ShoppingCartPage shoppingCartPage;
+        public static FavoritesPage favoritesPage;
+
 
         [OneTimeSetUp]
         public static void SetUp()
@@ -27,6 +29,7 @@ namespace BaigiamasisDarbas2021.Test
             //driver = CustomDriver.GetFirefoxDriver();
             homePage = new HomePage(driver);
             shoppingCartPage = new ShoppingCartPage(driver);
+            favoritesPage = new FavoritesPage(driver);
         }
         [TearDown]
         public static void TearDownAttribute()
