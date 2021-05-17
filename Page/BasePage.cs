@@ -17,7 +17,6 @@ namespace BaigiamasisDarbas2021
             Driver = webDriver;
         }
 
-        //explicit wait
         public WebDriverWait GetWait(int seconds = 10)
         {
             return new WebDriverWait(Driver, TimeSpan.FromSeconds(seconds));

@@ -9,17 +9,16 @@ namespace BaigiamasisDarbas2021.Test
 {
     public class LoginTest : BaseTest
     {
+
         [Test]
         public static void TestUserLogin()
         {
-            homePage.NavigateToDefaultPage()
-                .AcceptCookie()
-                .ClickLoginOrRegister()
-                .EnterEmail(User.MyUser.TestUser.Email)
-                .EnterPassword(User.MyUser.TestUser.Password)
-                .ClickLogin()
-                .VerifyLogoutButtonIsPresent()
-                .ClickLogout();
+            userPage.NavigateToDefaultPage()
+            .EnterEmail(User.MyUser.TestUser.Email)
+            .EnterPassword(User.MyUser.TestUser.Password)
+            .ClickLogin();
+            homePage.VerifyLogoutButtonIsPresent()
+            .ClickLogout();
         }
     }
 }

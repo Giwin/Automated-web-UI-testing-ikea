@@ -19,7 +19,7 @@ namespace BaigiamasisDarbas2021.Test
         protected static IWebDriver driver;
         public static HomePage homePage;
         public static ShoppingCartPage shoppingCartPage;
-        public static FavoritesPage favoritesPage;
+        public static UserPage userPage;
 
 
         [OneTimeSetUp]
@@ -29,7 +29,7 @@ namespace BaigiamasisDarbas2021.Test
             //driver = CustomDriver.GetFirefoxDriver();
             homePage = new HomePage(driver);
             shoppingCartPage = new ShoppingCartPage(driver);
-            favoritesPage = new FavoritesPage(driver);
+            userPage = new UserPage(driver);
         }
         [TearDown]
         public static void TearDownAttribute()
@@ -42,7 +42,7 @@ namespace BaigiamasisDarbas2021.Test
         [OneTimeTearDown]
         public static void TearDown()
         {
-            //driver.Quit();
+            driver.Quit();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace BaigiamasisDarbas2021.Test
                 .AcceptCookie()
                 .InsertSearchText(searchText)
                 .ClickSearchButton()
-                .VerifySearchResults(searchText);
+                .VerifyResults(searchText);
         }
     }
 }

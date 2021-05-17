@@ -17,19 +17,15 @@ namespace BaigiamasisDarbas2021.Page
         private IWebElement searchButton => Driver.FindElement(By.ClassName("input-group-append"));
         private IReadOnlyCollection<IWebElement> productCards => Driver.FindElement(By.CssSelector(".productList"))
             .FindElements(By.CssSelector(".card"));
+        private IWebElement openCategoriesDropdownButton => Driver.FindElement(By.Id("navbarDropdownProducts"));
+        private IReadOnlyCollection<IWebElement> productCategories => Driver.FindElement(By.CssSelector("#headerMainToggler > div > div.container.headerMenuProducts > ul > li.headerMenuProducts__menu--item.nav-item.dropdown.productsMenu.show > div > div > div > div.col-lg-9.pl-0.products"))
+    .FindElements(By.ClassName("dropdown-item"));
+        private IWebElement colorFilterButton => Driver.FindElement(By.ClassName("filterContainerMultiple")).FindElement(By.XPath("//*[text()='Spalva']"));
+        private IWebElement sizeFilterButton => Driver.FindElement(By.ClassName("filterContainerMultiple")).FindElement(By.XPath("//*[text()='Dydis']"));
         private IWebElement addToCartButton => Driver.FindElement(By.CssSelector("#sidenav > div > div.card-body > div > div > div:nth-child(2) > div > div.itemActionBlock > div.itemButtons > button.addToCart.btn.btn-yellow.btn-block.btn-icon.text-white"));
         private IWebElement goToCartButton => Driver.FindElement(By.CssSelector("#modal > div > div > div.modal-footer.d-block > div.row.m-0 > div > div > button.goToCart.btn.btn-yellow.btn-icon.text-white"));
-        private IWebElement addToFavorites => Driver.FindElement(By.CssSelector("#sidenav > div > div.card-body > div > div > div:nth-child(2) > div > div.itemActionBlock > div.itemButtons > button.addFavorites.btn.btn-block.btn-icon"));
-        private IWebElement closeProductModal => Driver.FindElement(By.ClassName("close-legend"));
-        private IWebElement openFavoritesButton => Driver.FindElement(By.CssSelector("#headerMainToggler > div > div.container.headerMenuProducts > div.d-none.d-lg-block.ml-4.favourites-notification > a"));
         private IWebElement loginOrRegisterButton => Driver.FindElement(By.XPath("//*[text()='Prisijungti arba registruotis']"));
         private IWebElement logoutButton => Driver.FindElement(By.XPath("//*[text()='Atsijungti']"));
-        private IWebElement emailField => Driver.FindElement(By.Id("loginForm_email"));
-        private IWebElement passwordField => Driver.FindElement(By.Id("loginForm_password"));
-        private IWebElement loginButton => Driver.FindElement(By.Id("btnSubmitLogin"));
-
-
-        private IWebElement addToFavoritesButton => Driver.FindElement(By.CssSelector("#sidenav > div > div.card-body > div > div > div:nth-child(2) > div > div.itemActionBlock > div.itemButtons > button.addFavorites.btn.btn-block.btn-icon"));
         public HomePage(IWebDriver webdriver) : base(webdriver)
         {
         }
@@ -64,12 +60,34 @@ namespace BaigiamasisDarbas2021.Page
             searchButton.Click();
             return this;
         }
-        public HomePage VerifySearchResults(string expectedText)
+        public HomePage VerifyResults(string expectedText)
         {
             Assert.IsTrue(
                 productCards.ElementAt(0).Text.Contains(expectedText),
                 $"Result is wrong. Result is expected to contain {expectedText} but actual result is {productCards.ElementAt(0).Text}"
             );
+            return this;
+        }
+        public HomePage SelectCategory(int index)
+        {
+            openCategoriesDropdownButton.Click();
+            productCategories.ElementAt(index).Click();
+            return this;
+        }
+        public HomePage SelectColorFilter()
+        {
+            colorFilterButton.Click();
+            Driver.FindElement(By.ClassName("filterContent")).FindElement(By.XPath("//*[text()='Pilka']")).Click();
+            GetWait().Until(ExpectedConditions.ElementToBeClickable(Driver.FindElement(By.ClassName("btn-filter"))));
+            Thread.Sleep(1000);
+            return this;
+        }
+        public HomePage SelectSizeFilter()
+        {
+            sizeFilterButton.Click();
+            Driver.FindElement(By.ClassName("basicSizes")).FindElement(By.XPath("//*[text()='150x200 cm']")).Click();
+            GetWait().Until(ExpectedConditions.ElementToBeClickable(Driver.FindElement(By.ClassName("btn-filter"))));
+            Thread.Sleep(1000);
             return this;
         }
         public HomePage OpenProductQuickView(int index)
@@ -94,38 +112,9 @@ namespace BaigiamasisDarbas2021.Page
             goToCartButton.Click();
             return new ShoppingCartPage(Driver);
         }
-        public HomePage AddToFavorites()
-        {
-            GetWait().Until(ExpectedConditions.ElementToBeClickable(addToFavorites));
-            addToFavorites.Click();
-            closeProductModal.Click();
-            return this;
-        }
-        public HomePage OpenFavoritedProductsList()
-        {
-            //GetWait().Until(ExpectedConditions.ElementToBeClickable(openFavoritesButton));
-            //Thread.Sleep(200);
-            openFavoritesButton.Click();
-            return this;
-        }
         public HomePage ClickLoginOrRegister()
         {
             loginOrRegisterButton.Click();
-            return this;
-        }
-        public HomePage EnterEmail(string username)
-        {
-            emailField.SendKeys(username);
-            return this;
-        }
-        public HomePage EnterPassword(string password)
-        {
-            passwordField.SendKeys(password);
-            return this;
-        }
-        public HomePage ClickLogin()
-        {
-            loginButton.Click();
             return this;
         }
         public HomePage VerifyLogoutButtonIsPresent()
