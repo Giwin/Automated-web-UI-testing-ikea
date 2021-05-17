@@ -26,7 +26,7 @@ namespace BaigiamasisDarbas2021.Test
         public static void SetUp()
         {
             driver = CustomDriver.GetChromeDriver();
-            //driver = CustomDriver.GetFirefoxDriver();
+            driver = CustomDriver.GetFirefoxDriver();
             homePage = new HomePage(driver);
             shoppingCartPage = new ShoppingCartPage(driver);
             userPage = new UserPage(driver);

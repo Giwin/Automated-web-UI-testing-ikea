@@ -19,7 +19,7 @@ namespace BaigiamasisDarbas2021.Page
             .FindElements(By.CssSelector(".card"));
         private IWebElement openCategoriesDropdownButton => Driver.FindElement(By.Id("navbarDropdownProducts"));
         private IReadOnlyCollection<IWebElement> productCategories => Driver.FindElement(By.CssSelector("#headerMainToggler > div > div.container.headerMenuProducts > ul > li.headerMenuProducts__menu--item.nav-item.dropdown.productsMenu.show > div > div > div > div.col-lg-9.pl-0.products"))
-    .FindElements(By.ClassName("dropdown-item"));
+            .FindElements(By.ClassName("dropdown-item"));
         private IWebElement colorFilterButton => Driver.FindElement(By.ClassName("filterContainerMultiple")).FindElement(By.XPath("//*[text()='Spalva']"));
         private IWebElement sizeFilterButton => Driver.FindElement(By.ClassName("filterContainerMultiple")).FindElement(By.XPath("//*[text()='Dydis']"));
         private IWebElement addToCartButton => Driver.FindElement(By.CssSelector("#sidenav > div > div.card-body > div > div > div:nth-child(2) > div > div.itemActionBlock > div.itemButtons > button.addToCart.btn.btn-yellow.btn-block.btn-icon.text-white"));
@@ -102,13 +102,14 @@ namespace BaigiamasisDarbas2021.Page
         public HomePage AddProductToCart()
         {
             GetWait().Until(ExpectedConditions.ElementToBeClickable(addToCartButton));
+            Thread.Sleep(1000);
             addToCartButton.Click();
             return this;
         }
         public ShoppingCartPage GoToCart()
         {
             GetWait().Until(ExpectedConditions.ElementToBeClickable(goToCartButton));
-            Thread.Sleep(200);
+            Thread.Sleep(1000);
             goToCartButton.Click();
             return new ShoppingCartPage(Driver);
         }
