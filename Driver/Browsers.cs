@@ -9,6 +9,7 @@ namespace BaigiamasisDarbas2021.Driver
     enum Browsers
     {
         Chrome,
-        Firefox
+        Firefox,
+        Edge
     }
 }
