@@ -26,9 +26,12 @@ namespace BaigiamasisDarbas2021.Page
         private IWebElement goToCartButton => Driver.FindElement(By.CssSelector("#modal > div > div > div.modal-footer.d-block > div.row.m-0 > div > div > button.goToCart.btn.btn-yellow.btn-icon.text-white"));
         private IWebElement loginOrRegisterButton => Driver.FindElement(By.XPath("//*[text()='Prisijungti arba registruotis']"));
         private IWebElement logoutButton => Driver.FindElement(By.XPath("//*[text()='Atsijungti']"));
+
         public HomePage(IWebDriver webdriver) : base(webdriver)
         {
+
         }
+
         public HomePage NavigateToDefaultPage()
         {
             if (Driver.Url != urlPage)
@@ -37,6 +40,7 @@ namespace BaigiamasisDarbas2021.Page
             }
             return this;
         }
+
         public HomePage AcceptCookie()
         {
             Cookie myCookie = new Cookie("CookieConsent"
@@ -49,17 +53,20 @@ namespace BaigiamasisDarbas2021.Page
             Driver.Navigate().Refresh();
             return this;
         }
+
         public HomePage InsertSearchText(string searchText)
         {
             searchField.Clear();
             searchField.SendKeys(searchText);
             return this;
         }
+
         public HomePage ClickSearchButton()
         {
             searchButton.Click();
             return this;
         }
+
         public HomePage VerifyResults(string expectedText)
         {
             Assert.IsTrue(
@@ -68,12 +75,14 @@ namespace BaigiamasisDarbas2021.Page
             );
             return this;
         }
+
         public HomePage SelectCategory(int index)
         {
             openCategoriesDropdownButton.Click();
             productCategories.ElementAt(index).Click();
             return this;
         }
+
         public HomePage SelectColorFilter()
         {
             colorFilterButton.Click();
@@ -82,6 +91,7 @@ namespace BaigiamasisDarbas2021.Page
             Thread.Sleep(1000);
             return this;
         }
+
         public HomePage SelectSizeFilter()
         {
             sizeFilterButton.Click();
@@ -90,15 +100,18 @@ namespace BaigiamasisDarbas2021.Page
             Thread.Sleep(1000);
             return this;
         }
+
         public HomePage OpenProductQuickView(int index)
         {
             productCards.ElementAt(index).FindElement(By.XPath("//*[text()='Greita peržiūra']")).Click();
             return this;
         }
+
         public string GetProductTitle(int index)
         {
             return productCards.ElementAt(index).FindElement(By.XPath("//*[@data-title]")).Text;
         }
+
         public HomePage AddProductToCart()
         {
             GetWait().Until(ExpectedConditions.ElementToBeClickable(addToCartButton));
@@ -106,6 +119,7 @@ namespace BaigiamasisDarbas2021.Page
             addToCartButton.Click();
             return this;
         }
+
         public ShoppingCartPage GoToCart()
         {
             GetWait().Until(ExpectedConditions.ElementToBeClickable(goToCartButton));

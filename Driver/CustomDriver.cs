@@ -15,13 +15,21 @@ namespace BaigiamasisDarbas2021.Driver
         {
             return GetDriver(Browsers.Chrome);
         }
+
         public static IWebDriver GetFirefoxDriver()
         {
             return GetDriver(Browsers.Firefox);
         }
+
+        public static IWebDriver GetEdgeDriver()
+        {
+            return GetDriver(Browsers.Edge);
+        }
+
         private static IWebDriver GetDriver(Browsers browserName)
         {
-            IWebDriver webdriver = null;
+            IWebDriver webdriver;
+
             switch (browserName)
             {
                 case Browsers.Chrome:
@@ -34,8 +42,8 @@ namespace BaigiamasisDarbas2021.Driver
                     webdriver = new ChromeDriver();
                     break;
             }
-            webdriver.Manage().Window.Maximize();
-            webdriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            //webdriver.Manage().Window.Maximize();
+            //webdriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             return webdriver;
         }
 

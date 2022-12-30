@@ -12,6 +12,7 @@ namespace BaigiamasisDarbas2021
     public class BasePage
     {
         protected static IWebDriver Driver;
+
         public BasePage(IWebDriver webDriver)
         {
             Driver = webDriver;
